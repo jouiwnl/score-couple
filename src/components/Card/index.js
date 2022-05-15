@@ -3,28 +3,45 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import { CardActionArea } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 
-import { Status, HeaderCard, StatusWrapper } from './styles'
+import { HeaderCard, HeaderTitle, LineStatus } from './styles'
 
-export default function() {
+export default function({ status }) {
+
+  const navigate = useNavigate();
+
+  const openEdit = () => {
+    navigate('/cards/1')
+  } 
+
   return (
-    <Card sx={{ width: '322px', marginBottom: '13px', background: '#464646', color: '#E7E7E7' }}>
-      <CardActionArea>
-        <CardContent>
-          <HeaderCard>
-            <Typography gutterBottom variant="h5" component="div">
-              Lizard
+    <>
+      <LineStatus status={status}/>
+      <Card onClick={openEdit} sx={{ width: '322px', marginBottom: '13px', background: '#F4F4F4', color: '#000000' }}>
+        <CardActionArea>
+          <CardContent>
+            <HeaderCard>
+              <HeaderTitle>
+                Lizard
+              </HeaderTitle>
+            </HeaderCard>
+            <Typography variant="body2" sx={{ 
+              fontFamily: 'Poppins',
+              fontStyle: 'normal',
+              fontWeight: 300,
+              fontSize: '13px',
+              lineHeight: '19px',
+              color: '#000000',
+              mixBlendMode: 'normal',
+              opacity: 0.4,
+            }}>
+              Lizards are a widespread group of squamate reptiles, with over 6,000
+              species, ranging across all continents except Antarctica
             </Typography>
-            <StatusWrapper>
-              <Status status="doing"/>
-            </StatusWrapper>
-          </HeaderCard>
-          <Typography variant="body2" color="#E7E7E7">
-            Lizards are a widespread group of squamate reptiles, with over 6,000
-            species, ranging across all continents except Antarctica
-          </Typography>
-        </CardContent>
-      </CardActionArea>
-    </Card>
+          </CardContent>
+        </CardActionArea>
+      </Card>
+    </>
   );
 }
