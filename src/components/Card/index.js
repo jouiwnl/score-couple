@@ -17,8 +17,8 @@ export default function({ status }) {
 
   return (
     <>
-      <LineStatus status={status}/>
-      <Card onClick={openEdit} sx={{ width: '322px', marginBottom: '13px', background: '#F4F4F4', color: '#000000' }}>
+      <Card onClick={openEdit} sx={{ width: '322px', marginBottom: '13px', background: '#F4F4F4', color: '#000000', borderRadius: '10px' }}>
+        <LineStatus status={status}/>
         <CardActionArea>
           <CardContent>
             <HeaderCard>

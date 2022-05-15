@@ -48,8 +48,6 @@ export const HeaderTitle = styled.span`
 export const LineStatus = styled.div`
   width: 322px;
   height: 7px;
-
-  border-radius: 2px;
   background: ${(props => {
     if (props.status == "canceled") {
       return '#FA8072';

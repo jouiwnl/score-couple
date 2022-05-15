@@ -16,8 +16,9 @@ export const ColumnTitle = styled.div`
   width: inherit;
   display: flex;
   margin-bottom: 10px;
+  height: 40px;
 
-  border-radius: 4px;
+  border-radius: 10px;
   background: #F4F4F4;
   justify-content: space-between;
   align-items: center;

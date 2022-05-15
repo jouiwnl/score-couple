@@ -9,7 +9,7 @@ export default function() {
       <Link to="/columns" style={{ textDecoration: 'none', height: '50px' }}>
         <Card sx={{ 
             width: 315, 
-            height: 50,
+            height: 40,
             marginBottom: '5px',
             background: 'transparent', 
             color: '#000', 
