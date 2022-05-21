@@ -4,8 +4,7 @@ import GlobalStyles from './styles/global';
 import Home from './pages/Home';
 import Header from './components/Header';
 import { Main } from './pages/Home/styles';
-import AddCard from './pages/AddCard';
-import AddColumn from './pages/AddColumn';
+import Search from './pages/Search';
 
 function App() {
   return (
@@ -16,10 +15,8 @@ function App() {
           <Main>
             <Routes>
               <Route path='/' element={ <Home /> }></Route>
-              <Route path='/cards' element={ <AddCard /> }></Route>
-              <Route path='/cards/:cardid' element={ <AddCard /> }></Route>
-              <Route path='/columns' element={ <AddColumn /> }></Route>
-              <Route path='/columns/:columnid' element={ <AddColumn /> }></Route>
+              <Route path='/search' element={ <Search /> }></Route>
+              <Route path='/search/:columnid' element={ <Search /> }></Route>
             </Routes>
           </Main>
         </BrowserRouter>

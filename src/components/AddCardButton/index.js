@@ -2,18 +2,17 @@ import { Card, CardContent } from '@mui/material'
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-export default function() {
+export default function({ columnid }) {
 
   return (
     <>
-      <Link to="/cards" style={{ textDecoration: 'none' }}>
+      <Link to={`/search/${columnid}`} style={{ textDecoration: 'none' }}>
         <Card sx={{ 
             width: 315, 
             height: 50,
             marginBottom: '5px',
             background: 'transparent', 
-            color: '#000', 
-            opacity: 0.6,
+            color: '#FFF', 
             outlineStyle: 'dashed',
             display: 'flex',
             alignItems: 'center',
@@ -21,9 +20,7 @@ export default function() {
             transition: 'all ease 0.3s',
 
             ":hover" : {
-              background: '#000',
-              opacity: 0.2,
-              color: '#FFF',
+              opacity: 0.5,
               transition: 'all ease 0.3s',
               cursor: 'pointer'
             }

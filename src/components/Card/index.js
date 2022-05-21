@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { HeaderCard, HeaderTitle, LineStatus } from './styles'
 
-export default function({ status }) {
+export default function({ status, conteudo }) {
 
   const navigate = useNavigate();
 
@@ -17,7 +17,7 @@ export default function({ status }) {
 
   return (
     <>
-      <Card onClick={openEdit} sx={{ width: '322px', marginBottom: '13px', background: '#F4F4F4', color: '#000000', borderRadius: '10px' }}>
+      <Card onClick={openEdit} sx={{ minWidth: '100px', marginBottom: '13px', background: '#121212', color: '#FFF', borderRadius: '10px' }}>
         <LineStatus status={status}/>
         <CardActionArea>
           <CardContent>
@@ -32,12 +32,11 @@ export default function({ status }) {
               fontWeight: 300,
               fontSize: '13px',
               lineHeight: '19px',
-              color: '#000000',
+              color: '#FFF',
               mixBlendMode: 'normal',
               opacity: 0.4,
             }}>
-              Lizards are a widespread group of squamate reptiles, with over 6,000
-              species, ranging across all continents except Antarctica
+              {conteudo}
             </Typography>
           </CardContent>
         </CardActionArea>

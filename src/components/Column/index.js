@@ -1,55 +1,85 @@
 import React from 'react'
 
-import { ColumnWrapper, ColumnTitle, Title } from './styles';
+import { ColumnWrapper, ColumnTitle, Title, ColumnBody } from './styles';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
-import Card from '../Card';
 import AddCardButton from '../AddCardButton';
-import { Button, Menu, MenuItem } from '@mui/material';
-import { useNavigate } from 'react-router-dom'
+import { Button } from '@mui/material';
+import NewCard from '../NewCard'
+import CardDialog from '../CardDialog'
+import ColumnDialog from '../ColumnDialog';
+import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd'
 
-export default function() {
+export default function({ column, reload }) {
 
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const open = Boolean(anchorEl);
-  const navigate = useNavigate();
+  const [openDialog, setOpenDialog] = React.useState(false);
+  const [openDialogColumn, setOpenDialogColumn] = React.useState(false);
+  const [selectedMovie, setSelectedMovie] = React.useState({});
+  const [selectedColumn, setSelectedColumn] = React.useState(null);
+  const [movies, updateMovies] = React.useState(column.movies);
 
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
+  const handleDragEnd = (e) => {
+    console.log(e)
+  }
+
+  const handleDragStart = (e) => {
+    //console.log(e)
+  }
+
+  const handleOpenDialog = (movie) => {
+    setSelectedMovie(movie);
+    setOpenDialog(true)
+  }
+
+  const handleClose = (registro) => {
+    if (registro) {
+      reload();
+    }
+    setOpenDialog(false);
+    setOpenDialogColumn(false)
   };
 
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
-
-  const openEdit = () => {
-    navigate('/columns/1')
+  const handleOpenEditColumn = () => {
+    setSelectedColumn(column)
+    setOpenDialogColumn(true)
   }
 
   return (
     <>
-      <ColumnWrapper>
+      <ColumnWrapper key={String(Math.random())}>
         <ColumnTitle>
           <Title>
-            Title
+            {column.title}
           </Title>
-          <Button sx={{ color: '#000' }} onClick={handleClick}>
+          <Button sx={{ color: '#FFF' }} onClick={handleOpenEditColumn}>
             <MoreHorizIcon />
           </Button>
-          <Menu
-            id="demo-positioned-menu"
-            aria-labelledby="demo-positioned-button"
-            anchorEl={anchorEl}
-            open={open}
-            onClose={handleClose}
-          >
-            <MenuItem onClick={openEdit}>Edit column</MenuItem>
-          </Menu>
         </ColumnTitle>
-        <Card status="doing"/>
-        <Card status="canceled"/>
-        <Card status="completed"/>
-        <AddCardButton />
+
+        <DragDropContext onDragStart={handleDragStart} onDropEnd={handleDragEnd}>
+          <Droppable droppableId="cards" type='cardsList'>
+            {(provided) => (
+              <div {...provided.droppableProps} ref={provided.innerRef}>
+                <ColumnBody>
+                  {movies.map((movie, index) => (
+                    <Draggable key={movie.id} draggableId={'cards' + movie.id.toString()} index={index}>
+                      {(provided) => (
+                        <div onClick={() => handleOpenDialog(movie) } {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef}>
+                          <NewCard movie={movie} status={movie.status}/>  
+                        </div>
+                      )}
+                    </Draggable>
+                  ))}
+                  {provided.placeholder}
+                </ColumnBody>
+              </div>
+            )}
+          </Droppable>
+        </DragDropContext>
+        
+        <CardDialog open={openDialog} onClose={handleClose} movie={selectedMovie}/>
+        <AddCardButton columnid={column.id} />
       </ColumnWrapper>
+      <ColumnDialog open={openDialogColumn} onClose={handleClose} column={selectedColumn}/>
     </>
   )
 }

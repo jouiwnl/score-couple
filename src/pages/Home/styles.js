@@ -10,10 +10,14 @@ export const Main = styled.main`
 
 export const WorkSpaceWrapper = styled.div`
   width: 100%;
-  height: 100vh;
+  max-height: 100vh;
   padding: 20px;
 
   overflow-y: auto;
+
+  ::-webkit-scrollbar {
+    width: 0;
+  }
 `
 
 export const WorkSpaceTitle = styled.h1`
@@ -23,10 +27,23 @@ export const WorkSpaceTitle = styled.h1`
 
 export const WorkSpaceColumns = styled.div`
   width: 100%;
-  height: 100%;
   display: flex;
   flex-direction: row;
   overflow-y: auto;
 
   padding: 20px;
+  padding-bottom: 50px;
+
+  ::-webkit-scrollbar
+  {
+    height: 0px;
+  }
+`
+
+export const LoadingWrapper = styled.div`
+    height: 25vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 `
