@@ -23,7 +23,7 @@ import {
   StatusWrapper
 } from './styles';
 import { useNavigate } from 'react-router-dom';
-import { FormControl, TextField } from '@mui/material';
+import { toast } from 'react-toastify';
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -62,9 +62,18 @@ export default function ({ open, onClose, movie, columnid }) {
       movieDescription: selectedMovie.overview.split('.')[0]
     }
 
-    httpApi.post(`/movies?columnid=${columnid}`, movie).then(() => {
+    const promise = httpApi.post(`/movies?columnid=${columnid}`, movie).then(() => {
       navigate('/')
     })
+
+    toast.promise(
+      promise,
+      {
+        pending: 'Salvando filme',
+        success: 'Filme salvo com sucesso!',
+        error: 'Erro ao salvar filme!'
+      }
+    );
   }
 
   const handleInputChange = (e) => {
@@ -77,15 +86,33 @@ export default function ({ open, onClose, movie, columnid }) {
   }
 
   const handleUpdate = () => {
-    httpApi.put(`/movies/${movieValues.id}`, movieValues).then(() => {
+    const promise = httpApi.put(`/movies/${movieValues.id}`, movieValues).then(() => {
       onClose(movieValues)
     })
+
+    toast.promise(
+      promise,
+      {
+        pending: 'Salvando registro',
+        success: 'Registro salvo com sucesso!',
+        error: 'Erro ao salvar registro!'
+      }
+    );
   }
 
   const handleDelete = () => {
-    httpApi.delete(`/movies/${movieValues.id}`).then((response) => {
+    const promise = httpApi.delete(`/movies/${movieValues.id}`).then((response) => {
       onClose(movieValues)
     })
+
+    toast.promise(
+      promise,
+      {
+        pending: 'Deletando card...',
+        success: 'Card deletado com sucesso!',
+        error: 'Erro ao deletar o card!'
+      }
+    )
   }
 
   const setImage = () => {

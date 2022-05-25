@@ -170,6 +170,10 @@ export const MovieAvaliationDescription = styled.div`
       font-size: 25px;
     }
   }
+
+  ::-webkit-scrollbar {
+    width: 0;
+  }
 `
 
 export const ButtonWrapper = styled.div`

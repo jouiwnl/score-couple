@@ -37,8 +37,6 @@ export const Title = styled.span`
 
 export const ColumnBody = styled.div`
   max-height: 90vh;
-  overflow-y: auto;
-  overflow-x: hidden;
   margin-bottom: 15px;
   padding: 10px;
 

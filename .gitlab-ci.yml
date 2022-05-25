@@ -1,0 +1,33 @@
+image: node:16.14
+
+stages:
+  - build
+  - deploy
+
+cache:
+  paths: 
+    - node_modules
+
+compile-node:
+  stage: build
+  script:
+    - npm install
+    - npm run build
+  artifacts:
+    paths:
+      - dist
+
+pages:
+  only:
+    - main
+  stage: deploy
+  script:
+    - echo "Creating deploy to Gitlab pages..."
+    - rm -r public/
+    - mkdir public
+    - cp -r dist/css public/
+    - cp -r dist/js public/
+    - cp dist/index.html public/
+  artifacts:
+    paths:
+      - public

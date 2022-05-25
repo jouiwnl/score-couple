@@ -7,7 +7,7 @@ import { Button } from '@mui/material';
 import NewCard from '../NewCard'
 import CardDialog from '../CardDialog'
 import ColumnDialog from '../ColumnDialog';
-import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd'
+import { Droppable, Draggable } from 'react-beautiful-dnd'
 
 export default function({ column, reload }) {
 
@@ -16,14 +16,6 @@ export default function({ column, reload }) {
   const [selectedMovie, setSelectedMovie] = React.useState({});
   const [selectedColumn, setSelectedColumn] = React.useState(null);
   const [movies, updateMovies] = React.useState(column.movies);
-
-  const handleDragEnd = (e) => {
-    console.log(e)
-  }
-
-  const handleDragStart = (e) => {
-    //console.log(e)
-  }
 
   const handleOpenDialog = (movie) => {
     setSelectedMovie(movie);
@@ -34,8 +26,8 @@ export default function({ column, reload }) {
     if (registro) {
       reload();
     }
-    setOpenDialog(false);
     setOpenDialogColumn(false)
+    setOpenDialog(false);
   };
 
   const handleOpenEditColumn = () => {
@@ -45,7 +37,7 @@ export default function({ column, reload }) {
 
   return (
     <>
-      <ColumnWrapper key={String(Math.random())}>
+      <ColumnWrapper>
         <ColumnTitle>
           <Title>
             {column.title}
@@ -55,26 +47,24 @@ export default function({ column, reload }) {
           </Button>
         </ColumnTitle>
 
-        <DragDropContext onDragStart={handleDragStart} onDropEnd={handleDragEnd}>
-          <Droppable droppableId="cards" type='cardsList'>
-            {(provided) => (
-              <div {...provided.droppableProps} ref={provided.innerRef}>
-                <ColumnBody>
-                  {movies.map((movie, index) => (
-                    <Draggable key={movie.id} draggableId={'cards' + movie.id.toString()} index={index}>
-                      {(provided) => (
-                        <div onClick={() => handleOpenDialog(movie) } {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef}>
-                          <NewCard movie={movie} status={movie.status}/>  
-                        </div>
-                      )}
-                    </Draggable>
-                  ))}
-                  {provided.placeholder}
-                </ColumnBody>
-              </div>
-            )}
-          </Droppable>
-        </DragDropContext>
+        <Droppable droppableId={column.id.toString()}>
+          {(provided) => (
+            <div style={{ minWidth: '322px' }} {...provided.droppableProps} ref={provided.innerRef}>
+              <ColumnBody>
+                {movies.map((movie, index) => (
+                  <Draggable id={movie.id.toString()} key={movie.id} draggableId={movie.id.toString()} index={index}>
+                    {(provided) => (
+                      <div onClick={() => handleOpenDialog(movie) } {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef}>
+                        <NewCard movie={movie} status={movie.status}/>  
+                      </div>
+                    )}
+                  </Draggable>
+                ))}
+              </ColumnBody>
+              {provided.placeholder}
+            </div>
+          )}
+        </Droppable>
         
         <CardDialog open={openDialog} onClose={handleClose} movie={selectedMovie}/>
         <AddCardButton columnid={column.id} />

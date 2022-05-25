@@ -37,15 +37,17 @@ export default function({ status, movie }) {
                   {movie.genre}
                 </Information>
               </AditionalInformation>
-              <RightMovieInformation>
-                <MovieAvaliation>
-                  <Rating
-                    name="simple-controlled"
-                    value={movie.score}
-                    readOnly
-                  />
-                </MovieAvaliation>
-              </RightMovieInformation>
+              {movie.score && !(movie.status == 'DOING' || movie.status == 'NOTSTARTED') ? (
+                <RightMovieInformation>
+                  <MovieAvaliation>
+                    <Rating
+                      name="simple-controlled"
+                      value={movie.score}
+                      readOnly
+                    />
+                  </MovieAvaliation>
+                </RightMovieInformation>
+              ) : '' }
             </RightSide>
           </CardWrapper>
         </Card>

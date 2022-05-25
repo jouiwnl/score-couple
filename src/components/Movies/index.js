@@ -32,6 +32,7 @@ export default function({ movies, columnid }) {
 
   const handleCloseDialog = () => {
     setOpen(false)
+    setMovie(null);
   }
 
   return (

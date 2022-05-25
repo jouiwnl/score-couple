@@ -8,7 +8,7 @@ export const HeaderWrapper = styled.div`
     overflow-x: auto;
 
     display: flex;
-    justify-content: flex-start;
+    justify-content: space-between;
     align-items: center;
     color: #fff;
 
@@ -21,6 +21,12 @@ export const HeaderWrapper = styled.div`
         height: 0px;
         background-color: #F5F5F5;
     }
+`
+
+export const HeaderActionsWrapper = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
 `
 
 export const HeaderLine = styled.div`
@@ -43,4 +49,9 @@ export const HeaderButton = styled.span`
     &:hover {
         opacity: 0.5;
     }
+`
+
+export const SignOut = styled.div`
+    cursor: pointer;
+    justify-content: flex-end;
 `
